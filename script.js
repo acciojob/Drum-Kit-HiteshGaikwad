@@ -4,13 +4,10 @@ document.addEventListener("keydown", function(event) {
   const sound = key.querySelector(".sound");
   
   if (key) {
-    // Play the sound
     sound.play();
-    
-    // Reset the sound if it is already playing
+
     sound.currentTime = 0;
     
-    // Add a class to highlight the pressed key
     key.classList.add("playing");
   }
 });
