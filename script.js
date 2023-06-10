@@ -1,16 +1,33 @@
 //your JS code here. If required.
-document.addEventListener("keydown", function(event) {
-  const key = document.querySelector(`.key[data-key="${event.keyCode}"]`);
-  const sound = key.querySelector(".sound");
+function playSound(keyCode) {
+  const audio = document.querySelector(`audio[data-key="${keyCode}"]`);
+  const key = document.querySelector(`.key[data-key="${keyCode}"]`);
   
-  if (key) {
-    sound.play();
+  if (!audio) return; // 
+  
+  audio.currentTime = 0; // Reset the audio playback
+  audio.play();
+  
+  key.classList.add('playing'); // Add class for styling when key is pressed
+}
 
-    sound.currentTime = 0;
-    
-    key.classList.add("playing");
-  }
-});
+// Function to handle the keydown event
+function handleKeyDown(event) {
+  playSound(event.keyCode);
+}
+
+// Function to remove the styling class when transition ends
+function removeTransition(event) {
+  if (event.propertyName !== 'transform') return;
+  
+  this.classList.remove('playing');
+}
+
+// Add event listeners
+window.addEventListener('keydown', handleKeyDown);
+
+const keys = document.querySelectorAll('.key');
+keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
 document.addEventListener("keyup", function(event) {
  const key = document.querySelector(`.key[data-key="${event.keyCode}"]`);
