@@ -13,3 +13,9 @@ document.addEventListener("keydown", function(event) {
 });
 
 document.addEventListener("keyup", function(event) {
+ const key = document.querySelector(`.key[data-key="${event.keyCode}"]`);
+  
+  if (key) {
+    key.classList.remove("playing");
+  }
+});
